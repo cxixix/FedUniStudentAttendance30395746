@@ -17,7 +17,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import au.edu.federation.itech3107.studentattendance30395746.util.CjData;
@@ -60,7 +62,8 @@ public class KeChengFragment extends AppCompatDialogFragment{
              CourseGroupBean courseGroupBean = mAdapter.getData().get(position);
              CjData.selectId = courseGroupBean.getId();
              startActivity(new Intent(getContext(), CouAArActivity.class)
-                     .putExtra("id",courseGroupBean.getId()));
+                     .putExtra("id",courseGroupBean.getId())
+                     .putExtra("date",courseGroupBean.getDate()));
          }
       });
       bind.rv.setAdapter(mAdapter);
@@ -113,9 +116,13 @@ public class KeChengFragment extends AppCompatDialogFragment{
          MaterialDatePicker<?> picker = builder.build();
          picker.addOnPositiveButtonClickListener(selection -> {
              headerText = picker.getHeaderText();
+             Pair selection1 = (Pair) selection;
+             Object first = selection1.first;
+             SimpleDateFormat format = new SimpleDateFormat("MM");
+             String format1 = format.format(new Date(Long.parseLong(first + "")));
              CourseGroupBean bean = new CourseGroupBean();
              bean.setName(headerText);
-             Log.e("hao", "headerText: "+headerText);
+             bean.setDate(format1);
              UserDataBase.getInstance(getContext()).getCourseGroupDao().insert(bean);
              UserDataBase.getInstance(getContext()).getCourseGroupDao().getAllUsers()
                      .subscribeOn(Schedulers.io())

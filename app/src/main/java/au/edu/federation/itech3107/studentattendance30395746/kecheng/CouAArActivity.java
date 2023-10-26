@@ -54,7 +54,7 @@ public class CouAArActivity extends AppCompatActivity implements View.OnClickLis
 
     private TextView weekAll;
     private int weekCount;
-    private int monthXZ;
+    private String monthXZ;
     private ShowDetailDialog mTkk;
     private CourseView cour;
     private LinearLayout weGp;
@@ -78,6 +78,7 @@ public class CouAArActivity extends AppCompatActivity implements View.OnClickLis
         nGpu = findViewById(R.id.layout_node_group);
         mLayoutCourse = findViewById(R.id.layout_course);
         mIntentId = getIntent().getIntExtra("id", 0);
+        monthXZ = getIntent().getStringExtra("date");
         ScreenUtils.init(this);
         Preferences.init(this);
         initToolbar();
@@ -328,7 +329,6 @@ public class CouAArActivity extends AppCompatActivity implements View.OnClickLis
     @SuppressLint("SetTextI18n")
     public void updateCoursePreference() {
         updateCurrentWeek();
-        monthXZ = TimeUtils.getNowMonth();
         monContent.setText(monthXZ + "\nmonth");
 
         //get id

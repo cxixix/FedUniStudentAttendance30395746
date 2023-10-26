@@ -82,6 +82,8 @@ public class StuXSActivity extends AppCompatActivity {
                         //Query Results
                         if (list.size() != 0) {
                             ma.setNewData(list);
+                        }else{
+                            ma.setNewData(new ArrayList<>());
                         }
 
                     }
